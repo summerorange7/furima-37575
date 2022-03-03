@@ -41,8 +41,8 @@
 
 |Column   |Type   |Options    |
 |---------|-------|-----------|
-|item|references|null: false, foreign-key: true|
-|user|references|null: false, foreign-key: true|
+|item|references|null: false, foreign_key: true|
+|user|references|null: false, foreign_key: true|
 
 
 ## Association
@@ -61,10 +61,8 @@
 |living_area|string|null: false|
 |building|string||
 |telephone|string|null: false|
-|buy|references|null: false, foreign-key: true|
+|buy|references|null: false, foreign_key: true|
 
 ## Association
 
 - belongs_to :buy
-- belongs_to :item
-- has_one :buy
