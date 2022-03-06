@@ -9,10 +9,10 @@ class User < ApplicationRecord
         validates :firstname, presence: true
         validates :familyname_kana, presence: true
         validates :firstname_kana, presence: true
-        validates :email, uniqueness: true 
+        # validates :email, uniqueness: true ：参考
         validates :birthday, presence: true 
  
-        has_many :items
-        has_many :buys
+        # has_many :items
+        # has_many :buys
 
         end
