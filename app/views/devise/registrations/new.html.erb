@@ -1,8 +1,8 @@
 <%= render "shared/second-header"%>
 
-<%# 「モデル名」にはUserモデルであれば@userを渡しましょう。「新規登録機能へのパス」は、devise導入後にrails routesを実行してdevise/registrations#createへのパスを確認し、記載してください。 %>
+<%# 【学習備忘録】「モデル名」にはdeviseによるuserモデル作成の為@userを渡す、「新規登録機能へのパス」は、devise/registrations#createに該当するもの %>
 <%= form_with model: @user, url: user_registration_path, class: 'registration-main', local: true do |f| %>
-<%# //「モデル名」にはUserモデルであれば@userを渡しましょう。「新規登録機能へのパス」は、devise導入後にrails routesを実行してdevise/registrations#createへのパスを確認し、記載してください。 %>
+<%# //【学習備忘録】ここまでform_withによるアカウント新規作成 %>
 <div class='form-wrap'>
   <div class='form-header'>
     <h1 class='form-header-text'>
@@ -10,9 +10,9 @@
     </h1>
   </div>
 
-  <%# インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
+  <%# 【学習備忘録】インスタンスを渡して、エラー発生時にメッセージを表示させる%>
   <%= render 'shared/error_messages', model: f.object %>
-  <%# //インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
+  <%# //【学習備忘録】ここまで、renderメソッド使用%>
 
   <div class="form-group">
     <div class='form-text-wrap'>
