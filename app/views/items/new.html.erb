@@ -5,8 +5,10 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with local: true do |f| %>
-
+    <%= form_with model: @item, local: true do |f| %>
+    <%# 【学習備忘録】form_with：model指定あり＝controllerでparams記述要、model指定なし＝同不要%>
+    <%# 【学習備忘録】controller内newアクション：インスタンス@itemの設定要%>
+    
     <%# インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
     <%# render 'shared/error_messages', model: f.object %>
     <%# //インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
