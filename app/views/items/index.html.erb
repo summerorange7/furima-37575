@@ -128,25 +128,28 @@
     </div>
     <ul class='item-lists'>
 
-      <%# 商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
+      <%# 【学習備忘録】itemsテーブルに値があれば＝ifの条件分岐 %>
+      <% if @items.present? %>
       <li class='list'>
-        <%= link_to "#" do %>
+      <% @items.each do |item| %>
+        <%= link_to "#" do %><%# 商品詳細表示機能実装時にここも実装%>
         <div class='item-img-content'>
-          <%= image_tag "item-sample.png", class: "item-img" %>
+          <%= image_tag item.image, class: "item-img" %>
 
           <%# 商品が売れていればsold outを表示しましょう %>
-          <div class='sold-out'>
-            <span>Sold Out!!</span>
-          </div>
+          <%#<div class='sold-out'>%>
+            <%#<span>Sold Out!!</span>%>
+          <%#</div>%>
           <%# //商品が売れていればsold outを表示しましょう %>
 
         </div>
         <div class='item-info'>
           <h3 class='item-name'>
-            <%= "商品名" %>
+            <%= item.title %>
           </h3>
           <div class='item-price'>
-            <span><%= "販売価格" %>円<br><%= '配送料負担' %></span>
+            <span><%= item.price %>円<br><%= item.delivery_fee.name %></span>
+            <%# 【学習備忘録】deli... = プルダウンで選んだidに対応する名前で表示（アソシエーション組んでるのでこの記述で可）%>
             <div class='star-btn'>
               <%= image_tag "star.png", class:"star-icon" %>
               <span class='star-count'>0</span>
@@ -154,9 +157,10 @@
           </div>
         </div>
         <% end %>
+        <% end %>
       </li>
-      <%# //商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
-
+      <%# 【学習備忘録】条件分岐に合致すればeachで一つづつ表示 %>
+      <% else %>
       <%# 商品がない場合は以下のダミー商品が表示されるようにしましょう %>
       <%# 商品がある場合は表示されないようにしましょう %>
       <li class='list'>
@@ -176,6 +180,7 @@
         </div>
         <% end %>
       </li>
+      <% end %>
       <%# //商品がある場合は表示されないようにしましょう %>
       <%# //商品がない場合は以下のダミー商品が表示されるようにしましょう %>
     </ul>
