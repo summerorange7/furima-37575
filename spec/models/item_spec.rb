@@ -15,13 +15,20 @@ RSpec.describe Item, type: :model do
     end
 
     context '出品登録できない場合' do
-      it 'ユーザーが空では登録できない' do
-        # userが空では登録できないテストコードを記述
+      
+      it 'ユーザーが紐づいていなければ登録できない' do
+        # userが紐づいていなければ登録できないテストコードを記述
         @item.user = nil
         @item.valid?
         expect(@item.errors.full_messages).to include "User must exist"
       end
 
+      it '画像が空では登録できない' do
+        # userが空では登録できないテストコードを記述
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Image can't be blank"
+      end
 
       it '商品名が空では登録できない' do
         # titleが空では登録できないテストコードを記述
@@ -77,6 +84,41 @@ RSpec.describe Item, type: :model do
         @item.price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include "Price can't be blank"
+      end
+
+      it '販売価格がアルファベットでは登録できない' do
+        # priceがアルファベットでは登録できないテストコードを記述
+        @item.price = 'abc'
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price is not a number"
+      end
+
+      it '販売価格がひらがなでは登録できない' do
+        # priceがひらがなでは登録できないテストコードを記述
+        @item.price = 'あいう'
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price is not a number"
+      end
+
+      it '販売価格がカタカナでは登録できない' do
+        # priceがカタカナでは登録できないテストコードを記述
+        @item.price = 'アイウ'
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price is not a number"
+      end
+
+      it '販売価格が漢字では登録できない' do
+        # priceがカタカナでは登録できないテストコードを記述
+        @item.price = '愛'
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price is not a number"
+      end
+
+      it '販売価格が全角数字では登録できない' do
+        # priceがカタカナでは登録できないテストコードを記述
+        @item.price = '１２３'
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price is not a number"
       end
 
       it '販売価格が299円以下では登録できない' do
