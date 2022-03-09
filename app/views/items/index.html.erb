@@ -130,7 +130,7 @@
 
       <%# 【学習備忘録】itemsテーブルに値があれば＝ifの条件分岐 %>
       <% if @items.present? %>
-      <% @items.each do |item| %>
+      <% @items.each do |item| %><%# 【学習備忘録】each文をli要素より上に置くと出したデータを全てli要素にできる%>
       <li class='list'>
         <%= link_to "#" do %><%# 商品詳細表示機能実装時にここも実装%>
         <div class='item-img-content'>
