@@ -29,9 +29,7 @@ class ItemsController < ApplicationController
   end
 
   def edit # 【学習備忘録】商品の編集
-    unless current_user.id == @item.user_id # 【学習備忘録】出品者かどうかの分岐
-      redirect_to action: :index 
-    end
+    redirect_to action: :index unless current_user.id == @item.user_id # 【学習備忘録】出品者かどうかの分岐
   end
 
   def update
