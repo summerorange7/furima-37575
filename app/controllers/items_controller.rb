@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_item, only: [:show, :edit, :update]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -24,17 +25,16 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
     # 【学習備忘録】itemsテーブルよりparamsに入ったidに該当するレコードを引っ張り出して入れておく
   end
 
   def edit # 【学習備忘録】商品の編集
-    @item = Item.find(params[:id])
-    redirect_to action: :index unless current_user.id == @item.user_id # 【学習備忘録】出品者かどうかの分岐
+    unless current_user.id == @item.user_id # 【学習備忘録】出品者かどうかの分岐
+      redirect_to action: :index 
+    end
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params) # 【学習備忘録】item_params:formで入力した内容を一式更新するため
       redirect_to item_path(@item)
     else
@@ -50,5 +50,9 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:title, :description, :category_id, :status_id, :delivery_fee_id, :prefecture_id,
                                  :delivery_day_id, :price, :image).merge(user_id: current_user.id)
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 end
