@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :turning_point, only: [:edit, :destroy]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -29,9 +30,7 @@ class ItemsController < ApplicationController
   end
 
   def edit # 【学習備忘録】商品の編集
-    unless current_user.id == @item.user_id # 【学習備忘録】出品者かどうかの分岐
-      redirect_to action: :index 
-    end
+    
   end
 
   def update
@@ -43,6 +42,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy # 【学習備忘録】商品詳細の削除
+    @item.destroy # ログイン中 = 出品者であればここから動く
+    redirect_to root_path
   end
 
   private
@@ -55,4 +56,9 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
   end
+
+  def turning_point
+    redirect_to action: :index unless current_user.id == @item.user_id # 【学習備忘録】出品者かどうかの分岐
+  end
+  
 end
