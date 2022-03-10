@@ -132,7 +132,7 @@
       <% if @items.present? %>
       <% @items.each do |item| %><%# 【学習備忘録】each文をli要素より上に置くと出したデータを全てli要素にできる%>
       <li class='list'>
-        <%= link_to "#" do %><%# 商品詳細表示機能実装時にここも実装%>
+        <%= link_to item_path(item.id) do %><%# 商品詳細表示機能実装時にここも実装%>
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
 

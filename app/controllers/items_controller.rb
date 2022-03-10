@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
   
   def index
     @items = Item.includes(:user).order("created_at DESC")
@@ -22,6 +22,17 @@ class ItemsController < ApplicationController
       # //以上、【学習備忘録】
     end
   end
+
+      def show
+        @item = Item.find(params[:id]) 
+        #【学習備忘録】itemsテーブルよりparamsに入ったidに該当するレコードを引っ張り出して入れておく
+      end
+
+      def edit #【学習備忘録】商品の編集
+      end
+
+      def destroy #【学習備忘録】商品詳細の削除
+      end
 
   private
 
