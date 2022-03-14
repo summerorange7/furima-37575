@@ -17,7 +17,8 @@ class Item < ApplicationRecord
   # 【学習備忘録】11~15li.：プルダウンid.１（＝「--」）を選んだ場合はエラー判定
 
   belongs_to :user # 【学習備忘録】他テーブル参照：アソシエーション記述＝外部キー＋:presence true　の役割
-  # READMEのuserに限ってバリデーション要らず
+  # 【学習備忘録】READMEのuserに限ってバリデーション要らず
+  has_one :order
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions

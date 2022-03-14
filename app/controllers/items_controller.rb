@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :turning_point, only: [:edit, :destroy]
+  before_action :order_check, only: :show
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -61,4 +62,10 @@ class ItemsController < ApplicationController
     redirect_to action: :index unless current_user.id == @item.user_id # 【学習備忘録】出品者かどうかの分岐
   end
   
+  def order_check #【学習備忘録】以下、購入履歴が存在すればトップページへ遷移
+    if @item.order.present?
+      redirect_to root_path
+    end
+  end
+
 end
