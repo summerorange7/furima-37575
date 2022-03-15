@@ -69,6 +69,54 @@ RSpec.describe Item, type: :model do
           @order_address.valid?
           expect(@order_address.errors.full_messages).to include "Telephone is invalid"
         end
+        it 'telephoneが9桁以下では保存できないこと' do
+          #電話番号が9桁以下では登録できない
+          @order_address.telephone = '090123456'
+          @order_address.valid?
+          expect(@order_address.errors.full_messages).to include "Telephone is invalid"
+        end
+        it 'telephoneが12桁以上では保存できないこと' do
+          #電話番号が12桁以上では登録できない
+          @order_address.telephone = '090123456789'
+          @order_address.valid?
+          expect(@order_address.errors.full_messages).to include "Telephone is invalid"
+        end
+        it 'telephoneに全角数字があると保存できないこと' do
+          #電話番号に全角数字があると登録できない
+          @order_address.telephone = '０９０１２３４５６７８'
+          @order_address.valid?
+          expect(@order_address.errors.full_messages).to include "Telephone is invalid"
+        end
+        it 'telephoneに半角英字があると保存できないこと' do
+          #電話番号に半角英字があると登録できない
+          @order_address.telephone = '0901234567a'
+          @order_address.valid?
+          expect(@order_address.errors.full_messages).to include "Telephone is invalid"
+        end
+        it 'telephoneに全角英字があると保存できないこと' do
+          #電話番号に全角英字があると登録できない
+          @order_address.telephone = '0901234567ａ'
+          @order_address.valid?
+          expect(@order_address.errors.full_messages).to include "Telephone is invalid"
+        end
+        it 'telephoneにひらがながあると保存できないこと' do
+          #電話番号にひらがながあると登録できない
+          @order_address.telephone = '0901234567あ'
+          @order_address.valid?
+          expect(@order_address.errors.full_messages).to include "Telephone is invalid"
+        end
+        it 'telephoneにカタカナがあると保存できないこと' do
+          #電話番号にカタカナがあると登録できない
+          @order_address.telephone = '0901234567ア'
+          @order_address.valid?
+          expect(@order_address.errors.full_messages).to include "Telephone is invalid"
+        end
+        it 'telephoneに漢字があると保存できないこと' do
+          #電話番号に漢字があると登録できない
+          @order_address.telephone = '0901234567亜'
+          @order_address.valid?
+          expect(@order_address.errors.full_messages).to include "Telephone is invalid"
+        end
         it 'userが紐付いていないと保存できないこと' do
           #user_idが空では登録できない
           #【学習備忘録】associationメソッド使えない為、orderテーブル内user_idに値あるかどうかでテスト
