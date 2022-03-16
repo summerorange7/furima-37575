@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
         # nicknameが空では登録できないテストコードを記述
         @user.nickname = '' # あえてnicknameを空の状態にする
         @user.valid?
-        expect(@user.errors.full_messages).to include "Nickname can't be blank"
+        expect(@user.errors.full_messages).to include "ニックネームを入力してください"
       end
 
       it 'familynameが空では登録できない' do
@@ -124,7 +124,7 @@ RSpec.describe User, type: :model do
         # emailが空では登録できないテストコードを記述
         @user.email = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include "Email can't be blank"
+        expect(@user.errors.full_messages).to include "Eメールを入力してください"
       end
 
       it 'passwordが空では登録できない' do
@@ -138,21 +138,21 @@ RSpec.describe User, type: :model do
         # passwordとpassword_confirmationが一致していないと登録できないテストコードを記述
         @user.password_confirmation = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
+        expect(@user.errors.full_messages).to include "パスワード（確認用）とパスワードの入力が一致しません"
       end
 
       it 'birthdayが空では登録できない' do
         # birthdayが空では登録できないテストコードを記述
         @user.birthday = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include "Birthday can't be blank"
+        expect(@user.errors.full_messages).to include "生年月日を入力してください"
       end
 
       it '重複したemailが存在する場合は登録できない' do
         @user.save
         another_user = FactoryBot.build(:user, email: @user.email)
         another_user.valid?
-        expect(another_user.errors.full_messages).to include('Email has already been taken')
+        expect(another_user.errors.full_messages).to include('Eメールはすでに存在します')
       end
 
       it 'emailは@を含まないと登録できない' do
