@@ -1,0 +1,44 @@
+ja:
+  activerecord: #モデルにこの文字列あれば、この中に書いた部分は日本語化される
+    attributes:
+      user:
+        nickname: ニックネーム
+        familyname: 苗字
+        firstname: 名前
+        familyname_kana: 苗字かな
+        firstname_kana: 名前かな
+        birthday: 生年月日
+      item:
+        title: 商品名
+        image: 商品画像
+        description: 商品の説明
+        category_id: カテゴリー
+        status_id: 商品の状態
+        delivery_fee_id: 配送料の負担
+        prefecture_id: 発送元の地域
+        delivery_day_id: 発送までの日数
+        price: 販売価格
+
+  activemodel:
+    attributes:
+      order_address: #Formオブジェクトorder_addressはActiveModelを継承
+        postal_code: 郵便番号
+        prefecture_id: 都道府県
+        town: 市区町村
+        living_area: 番地
+        telephone: 電話番号
+        token: クレジットカード情報
+
+# models/application_record.rb:ActiveRecordを継承している
+#（詳細はapplication_record.rb内）
+# そのapplication_recordを継承しているのが各モデル
+# だからactiverecordの入れ子として書かれていて、対象のモデルは日本語化できる
+# ただし、addressに関しては話が別
+# Formオブジェクトに入っている、Formオブジェクトは継承元なし
+# →activerecordの階層にいても日本語化はできない
+# Formオブジェクト内に「ActiveModel」の記述あり
+# →ActiveModelを継承していることがわかる
+# →activemodelの階層下にして記述
+
+# インデントに注意
+# 揃ってattributesの下に入るように気を付ける
