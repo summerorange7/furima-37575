@@ -9,11 +9,11 @@ class Item < ApplicationRecord
   validates :delivery_day_id, presence: true
   validates :price, presence: true
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
-  validates :category_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :status_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :delivery_fee_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :delivery_day_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :category_id, numericality: { other_than: 1, message: "は必ずどれか選んで下さい" }
+  validates :status_id, numericality: { other_than: 1, message: "は必ずどれか選んで下さい" }
+  validates :delivery_fee_id, numericality: { other_than: 1, message: "は必ずどれか選んで下さい" }
+  validates :prefecture_id, numericality: { other_than: 1, message: "は必ずどれか選んで下さい" }
+  validates :delivery_day_id, numericality: { other_than: 1, message: "は必ずどれか選んで下さい" }
   # 【学習備忘録】11~15li.：プルダウンid.１（＝「--」）を選んだ場合はエラー判定
 
   belongs_to :user # 【学習備忘録】他テーブル参照：アソシエーション記述＝外部キー＋:presence true　の役割
