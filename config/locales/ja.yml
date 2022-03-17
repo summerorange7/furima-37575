@@ -28,6 +28,8 @@ ja:
         town: 市区町村
         living_area: 番地
         telephone: 電話番号
+        item_id: 商品
+        user_id: ユーザー
         token: クレジットカード情報
 
 # models/application_record.rb:ActiveRecordを継承している
