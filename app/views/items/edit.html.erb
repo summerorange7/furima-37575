@@ -1,6 +1,8 @@
 <%# 【学習備忘録】cssは商品出品のものを併用
 app/assets/stylesheets/items/new.css %>
 
+<% breadcrumb :items_edit, @item %>
+<%# 親からitemのidをもらいたいので、controllerで定義した@item要る%>
 <div class="items-sell-contents">
   <header class="items-sell-header">
     <%= link_to image_tag('furima-logo-color.png' , size: '185x50'), "/" %>
