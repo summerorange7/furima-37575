@@ -28,6 +28,8 @@ class ItemsController < ApplicationController
 
   def show
     # 【学習備忘録】itemsテーブルよりparamsに入ったidに該当するレコードを引っ張り出して入れておく
+    @comments = @item.comments.includes(:user)
+    @comment = Comment.new
   end
 
   def edit # 【学習備忘録】商品の編集

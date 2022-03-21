@@ -20,6 +20,7 @@ class Item < ApplicationRecord
   # 【学習備忘録】READMEのuserに限ってバリデーション要らず
   has_one :order
   has_one_attached :image
+  has_many :comments
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category

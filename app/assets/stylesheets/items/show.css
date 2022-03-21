@@ -205,3 +205,16 @@
   font-weight: bold;
   font-size: 23px;
 }
+/*書き込まれたコメントの表示*/
+.comment{
+  display: flex;
+}
+
+.comment p{
+   margin: 0;
+}
+
+.user-info{
+  color: gray;
+  font-weight: bold;
+}
