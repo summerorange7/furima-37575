@@ -2,6 +2,10 @@
 
 <% breadcrumb :devise %>
 
+
+<%= link_to "Facebookで登録", user_facebook_omniauth_authorize_path, method: :post%>
+<%= link_to "Googleで登録", user_google_oauth2_omniauth_authorize_path, method: :post%>
+
 <%# 【学習備忘録】「モデル名」にはdeviseによるuserモデル作成の為@userを渡す、「新規登録機能へのパス」は、devise/registrations#createに該当するもの %>
 <%= form_with model: @user, url: user_registration_path, class: 'registration-main', local: true do |f| %>
 <%# //【学習備忘録】ここまでform_withによるアカウント新規作成 %>
@@ -30,6 +34,9 @@
     </div>
     <%= f.email_field :email, class:"input-default", id:"email", placeholder:"PC・携帯どちらでも可", autofocus: true %>
   </div>
+  <%if @sns_id.present? %>
+   <%= hidden_field_tag :sns_auth, true %>
+ <% else %>
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">パスワード</label>
@@ -53,6 +60,7 @@
       安心・安全にご利用いただくために、お客さまの本人情報の登録にご協力ください。他のお客さまに公開されることはありません。
     </p>
   </div>
+  <% end %>
   <div class="form-group">
     <div class='form-text-wrap'>
       <label class="form-text">お名前(全角)</label>
