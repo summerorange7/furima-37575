@@ -89,20 +89,46 @@
   </div>
   <%# /商品の概要 %>
 
+<% if user_signed_in? %>
   <div class="comment-box">
-    <form>
-      <textarea class="comment-text"></textarea>
+    <%#form：変更前はタグ表示 form_withメソッド使用時は不要%>
+      <%= form_with model: [@item, @comment], id: "comment-form" do |f| %>
+      <%= f.text_area :comment , class: "comment-text" %>
+      <%#textarea class="comment-text"></textarea :変更前%>
+      <%# form_withメソッド使用時はf.text_area...の記述に変更%>
       <p class="comment-warn">
         相手のことを考え丁寧なコメントを心がけましょう。
         <br>
         不快な言葉遣いなどは利用制限や退会処分となることがあります。
       </p>
-      <button type="submit" class="comment-btn">
+      <%= f.button type: 'submit', class: "comment-btn" do %> 
+      <%#button type="submit" class="comment-btn" :変更前 form_withメソッド使う時は上記へ変更%>
+      <%# ボタン専用imageを使うため、link to ...do~endのようにdo~endで該当表記を囲む%>
+      <%# 該当箇所：image_tag~span終了タグ%>
         <%= image_tag "comment.png" ,class:"comment-flag-icon" ,width:"20",height:"25"%>
-        <span>コメントする<span>
-      </button>
-    </form>
+        <span>コメントする</span>
+      <%#/button :変更前 form_withメソッド使用時はbuttonタグ使わない→f.buttonに変更%>
+        <% end %>
+      <% end %>
+    <%#/form%>
+  <% end %>
   </div>
+  <%# formタグ、buttonタグ、textareaタグ:HTMLの表現%>
+  <%# form_withメソッド、f.text_area、f.button:rubyの表現%>
+  <%# 条件分岐を使うため、HTMLの記述からrubyの記述へ変更%>
+
+<%# コメント表示部分 %>
+<div id="comments">
+  <h4>＜コメント一覧＞</h4>
+    <% @item.comments.each do |comment| %>
+      <div class="comment">
+        <p class="user-info"><%= comment.user.nickname %></p>
+        <p><%= comment.comment%></p>
+        <%# ↑の意味：commentモデルのcommentカラム%>
+      </div>
+    <% end %>
+</div>
+
   <div class="links">
     <a href="#" class="change-item-btn">
       ＜ 前の商品
