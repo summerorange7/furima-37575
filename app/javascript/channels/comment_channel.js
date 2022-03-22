@@ -25,7 +25,7 @@ if(location.pathname.match(/\/items\/\d/)){
         </div>`
       const comments = document.getElementById("comments")
       comments.insertAdjacentHTML('beforeend', html)
-      const commentForm = document.getElementById("comment-comment")
+      const commentForm = document.getElementById("comment-form")//comment_comment:不適　テキストタグ
       commentForm.reset();
     }
   })
