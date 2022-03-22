@@ -26,7 +26,8 @@
         <p>
           クリックしてファイルをアップロード
         </p>
-        <%= f.file_field :image, id:"item-image" %>
+        <%= f.file_field :images, name: 'item[images][]', data: {index: 0} %><%#= f.file_field :image, id:"item-image" より変更 %>
+        <%# 複数枚扱うのでimages、[]追加:配列形式で画像の情報が格納されているため、data属性を追記%>
       </div>
     </div>
     <%# /商品画像 %>

@@ -53,7 +53,9 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:title, :description, :category_id, :status_id, :delivery_fee_id, :prefecture_id,
-                                 :delivery_day_id, :price, :image).merge(user_id: current_user.id)
+                                 :delivery_day_id, :price, {images: []}).merge(user_id: current_user.id)
+      #{images: []} = 画像を複数枚投稿できるようparams内も変更
+      #images:[]の記述はpermitの中でも必ず最後に行うこと = 最後以外の記述はエラーの原因
   end
 
   def set_item

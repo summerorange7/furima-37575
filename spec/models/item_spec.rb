@@ -24,9 +24,9 @@ RSpec.describe Item, type: :model do
 
       it '画像が空では登録できない' do
         # imageが空では登録できないテストコードを記述
-        @item.image = nil
+        @item.images = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include "商品画像を入力してください"
+        expect(@item.errors.full_messages).to include "商品画像は1枚以上5枚以下にしてください"
       end
 
       it '商品名が空では登録できない' do
