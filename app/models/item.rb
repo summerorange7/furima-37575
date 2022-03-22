@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
-  validates :image, presence: true
+  validates :images, length: { minimum: 1, maximum: 5, message: "は1枚以上5枚以下にしてください" }
+  # presence: true #image より変更 = 画像を複数枚扱うため → コメントアウト（length使って１枚以上にすれば =presence trueと同じ意味になる）
   validates :title, presence: true
   validates :description, presence: true
   validates :category_id, presence: true
@@ -19,7 +20,7 @@ class Item < ApplicationRecord
   belongs_to :user # 【学習備忘録】他テーブル参照：アソシエーション記述＝外部キー＋:presence true　の役割
   # 【学習備忘録】READMEのuserに限ってバリデーション要らず
   has_one :order
-  has_one_attached :image
+  has_many_attached :images # has_one_attached :image より変更＝画像を複数枚扱うため
   has_many :comments
 
   extend ActiveHash::Associations::ActiveRecordExtensions

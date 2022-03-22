@@ -134,8 +134,11 @@
       <li class='list'>
         <%= link_to item_path(item.id) do %><%# 【学習備忘録】商品のidだけ出せれば良し%>
         <div class='item-img-content'>
-          <%= image_tag item.image, class: "item-img" %>
-
+          <%= image_tag item.images[0], class: "item-img" %>
+          <%# 【学習備忘録】images[0]:複数枚投稿の処理を記述したため、商品に紐づく画像の中でもどの番号（添字）の画像を代表して出すか指定%>
+          <%# 【学習備忘録】添字指定しないとエラーの元（= どこの画像表示するの??）%>
+          <%# 【学習備忘録】複数枚投稿機能において、indexでのコントローラー・モデル・ルーティングの変更はなし%>
+          
           <%# 【学習備忘録】商品が売れていればsold outを表示 %>
           <% if item.order.present? %>
           <div class='sold-out'>

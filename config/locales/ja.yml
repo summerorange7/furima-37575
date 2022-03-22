@@ -10,7 +10,7 @@ ja:
         birthday: 生年月日
       item:
         title: 商品名
-        image: 商品画像
+        images: 商品画像
         description: 商品の説明
         category_id: カテゴリー
         status_id: 商品の状態
