@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   before_action :order_check, only: :edit
 
   def index
-    @items = Item.includes(:user).order('created_at DESC').where.not(images: nil)
+    @items = Item.includes(:user).order('created_at DESC')
   end
 
   def new
