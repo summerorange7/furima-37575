@@ -7,9 +7,9 @@ require("@rails/ujs").start()
 //require("turbolinks").start() //turbolinks無効化→JSを正常に動かせる
 require("@rails/activestorage").start()
 require("channels")
-require("../item_price")
+require("../item_price")//自分でjsファイルを作った場合は必ずここへ記述（ないと動作しない）
 require("../order")
-
+require("../preview")
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
