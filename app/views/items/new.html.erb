@@ -7,7 +7,7 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with model: @item, local: true do |f| %>
+    <%= form_with model: @item, id: 'new_post', local: true do |f| %>
     <%# 【学習備忘録】form_with：model指定あり＝controllerでparams記述要、model指定なし＝同不要%>
     <%# 【学習備忘録】controller内newアクション：インスタンス@itemの設定要%>
     
@@ -21,6 +21,7 @@
         商品画像
         <span class="indispensable">必須</span>
       </div>
+      <div id="previews"></div><%# プレビュー画像を表示させるためのポジション取り%>
       <div class="click-upload">
         <p>
           クリックしてファイルをアップロード
