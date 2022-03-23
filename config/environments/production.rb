@@ -70,6 +70,7 @@ Rails.application.configure do
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
+
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
@@ -109,4 +110,10 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  #以下、Rails...endの中であれば場所はどこでもok
+  ActionCable.server.config.disable_request_forgery_protection = true
+  config.action_cable.url = "wss://furima-37575.herokuapp.com/cable" 
+  config.action_cable.allowed_request_origins = ['https://furima-37575.herokuapp.com', 'http://furima-37575.herokuapp.com']
+
 end

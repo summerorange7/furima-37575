@@ -25,7 +25,10 @@ if(location.pathname.match(/\/items\/\d/)){
         </div>`
       const comments = document.getElementById("comments")
       comments.insertAdjacentHTML('beforeend', html)
-      const commentForm = document.getElementById("comment-form")//comment_comment:不適　テキストタグ
+      const commentForm = document.getElementById("comment-form")
+      //comment_comment:不適 textereaしか指定できないタグ
+      //reset関数 ：動作の対象 = フォーム全体（formタグに直に書かれているid要素を指定）
+      // →コメントする枠だけでなく、「コメントする」ボタンや注意書きの部分もかぶるが問題なし
       commentForm.reset();
     }
   })

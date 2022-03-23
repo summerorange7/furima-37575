@@ -5,6 +5,7 @@ test:
   adapter: test
 
 production:
-  adapter: redis
+  adapter: async # 追記
+  # adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
   channel_prefix: furima_37575_production
