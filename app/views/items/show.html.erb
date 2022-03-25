@@ -24,6 +24,14 @@
       <% end %>
       <%# //商品が売れている場合は、sold outを表示しましょう %>
     </div>
+    <div>
+    <%= @item.tags&.first&.tag_name %><%# 条件分岐ifを使っていない ぼっち演算子&.のおかげ:%>
+    <%#= @item.tags.first.tag_name if @item.tags.first.present? （変更前）%>
+    <%# ↑itemに紐づくタグが存在している時のみタグ名を表示できるようにしている%>
+    <%# 詳細
+        商品とタグは多対多の関係→@item.tagsで取得されるタグの情報は配列となっている
+        したがって、firstメソッドを使用することにより、配列の最初の要素を取得%>
+    </div>
     <div class="item-price-box">
       <span class="item-price">
         <%= @item.price %>
