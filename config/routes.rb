@@ -9,5 +9,8 @@ Rails.application.routes.draw do
   resources :items do
     resources :orders, only: [:index, :create] 
     resources :comments, only: :create
+    collection do #searchアクションはitemがないと動かないからitemを親とした入れ子で記述
+      get 'search'
+    end
   end
 end
