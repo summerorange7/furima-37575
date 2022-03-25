@@ -46,10 +46,10 @@ document.addEventListener('DOMContentLoaded', function(){
       // 2枚目用のfile_field（「ファイルを選択」ボタン）を作成
       const newFileField = document.createElement('input'); //input属性を作る
       newFileField.setAttribute('type', 'file'); //type属性をfileで指定する
-      newFileField.setAttribute('name', 'item[images][]'); //name属性をitem[images][]で指定する
+      newFileField.setAttribute('name', 'item_tag_form[images][]'); //name属性をitem[images][]で指定する
       
       // 最後のfile_fieldを取得
-      const lastFileField = document.querySelector('input[type="file"][name="item[images][]"]:last-child');
+      const lastFileField = document.querySelector('input[type="file"][name="item_tag_form[images][]"]:last-child');
       // nextDataIndex = 最後のfile_fieldのdata-index + 1
       const nextDataIndex = Number(lastFileField.getAttribute('data-index')) +1; //最後の番号に１を足して、次の番号を作っている
       newFileField.setAttribute('data-index', nextDataIndex); //上の記述で出来た番号をdata-indexに格納して設置
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function(){
   };
 
     // input要素を取得:「ファイルを選択」のボタンがあるところ
-   const fileField = document.querySelector('input[type="file"][name="item[images][]"]'); //[images][] :複数枚の画像が配列形式で渡されるのでこの記述
+   const fileField = document.querySelector('input[type="file"][name="item_tag_form[images][]"]'); //[images][] :複数枚の画像が配列形式で渡されるのでこの記述
    //１枚だけ投稿の記述：const fileField = document.querySelector('input[type="file"][name="item[image]"]');
 
    // input要素で値の変化が起きた際に呼び出される関数

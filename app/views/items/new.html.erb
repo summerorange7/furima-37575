@@ -7,7 +7,10 @@
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with model: @item, id: 'new_post', local: true do |f| %>
+    <%= form_with model: @item_tag_form, url: items_path, method: :post, id: 'new_post', local: true do |f| %>
+    <%# 追加:url...指定しないとitem_tag_form_pathに飛ぶ（=Formオブジェクトに直接保存:ありえない）
+            method ...itemコントローラーのcreateアクションはHTTPメソッドがpost%>
+    <%#= 変更前 form_with model: @item, id: 'new_post', local: true do |f| %>
     <%# 【学習備忘録】form_with：model指定あり＝controllerでparams記述要、model指定なし＝同不要%>
     <%# 【学習備忘録】controller内newアクション：インスタンス@itemの設定要%>
     
@@ -26,8 +29,19 @@
         <p>
           クリックしてファイルをアップロード
         </p>
-        <%= f.file_field :images, name: 'item[images][]', data: {index: 0} %><%#= f.file_field :image, id:"item-image" より変更 %>
+        <%= f.file_field :images, name: 'item_tag_form[images][]', data: {index: 0} %><%#= f.file_field :image, id:"item-image" より変更 %>
         <%# 複数枚扱うのでimages、[]追加:配列形式で画像の情報が格納されているため、data属性を追記%>
+        <%# imageに関しては、通常つけるname属性（ここでは:images）以外にさらにname属性をつけられる（ここではname: 'item_tag_form[images][]',の部分）
+            → activeStorageのせい
+            → Formオブジェクトに入れ込んだ場合は必ず別でname属性つけよう%>
+        <%# ちなみに、他のデータ（titleとか）は別でname属性はつけない%>
+        <%# name属性 item_tag_form[images][]を解説
+            item_tag_form :変更前はitem（元々form_withのmodelオプションが@itemだった）
+            → なんで変更？ :form_withで指定したmodelオプションの変数名と一致させないと
+              paramsとしてデータを送った時に他の情報のハッシュと別の括りで届いてしまう
+              ex. imagesについて別でname属性をつけないままにする、modelオプションは@item_tag_form
+                  imagesの入ったハッシュ:item(アソシエーションによる)、他データ:item_tag_form
+                  → ハッシュが２つに分かれてしまう！%>
       </div>
     </div>
     <%# /商品画像 %>
@@ -38,6 +52,15 @@
         <span class="indispensable">必須</span>
       </div>
       <%= f.text_area :title, class:"items-text", id:"item-name", placeholder:"商品名（必須 40文字まで)", maxlength:"40" %>
+      <%# :title ...ここでついているname属性はこの後送られるparamsのハッシュのキー名になる
+                     != カラム名（実はこの部分は任意）
+                     なんで大半がカラム名で記述？ :railsの特性上、文字列が一致していると自動で「カラムだ」と認識してくれるから %>
+      <div class="tag-field">
+        <div class="weight-bold-text">
+          タグ
+        </div>
+      <%= f.text_field :tag_name, placeholder: 'add tags' %>
+      </div>
       <div class="items-explain">
         <div class="weight-bold-text">
           商品の説明
