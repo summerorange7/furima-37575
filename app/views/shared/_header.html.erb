@@ -28,7 +28,8 @@
     <ul class='lists-right'>
       <%# 【学習備忘録】devise導入後ログインの有無で表示が変わるように分岐%>
       <% if user_signed_in? %>
-      <li><%= link_to current_user.nickname, "#", class: "user-nickname" %></li>
+      <li><%= link_to current_user.nickname, users_show_path(current_user), class: "user-nickname" %></li>
+      <%# パス:マイページ表示のため、ログインしているユーザーの情報を表示させたいから %>
       <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></li>
       <% else %>
       <li><%= link_to 'ログイン', new_user_session_path, class: "login" %></li>

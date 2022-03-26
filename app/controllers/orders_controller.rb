@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
 
   def index
     @order_address = OrderAddress.new
+    redirect_to new_card_path and return unless current_user.card.present?
   end
 
   def create
@@ -42,12 +43,24 @@ class OrdersController < ApplicationController
     end
  
     def pay_item
-      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
+
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"] # 環境変数を読み込む
+      customer_token = current_user.card.customer_token # ログインしているユーザーの顧客トークンを定義
       Payjp::Charge.create(
-        amount: @item.price,  # 商品の値段
-        card: order_params[:token],    # カードトークン
-        currency: 'jpy'                 # 通貨の種類（日本円）
+        amount: @item.price, # 商品の値段
+        customer: customer_token, # 顧客のトークン
+        currency: 'jpy' # 通貨の種類（日本円）
       )
+      # （変更前）
+      # 購入処理に進むたびに入力していたところ
+      # あらかじめカード情報を入れてあるので、それを呼び出せるよう変更
+      # → これに伴って、ビューファイルのカード入力欄は不要になる
+      # Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
+      # Payjp::Charge.create(
+      #   amount: @item.price,  # 商品の値段
+      #   card: order_params[:token],    # カードトークン
+      #   currency: 'jpy'                 # 通貨の種類（日本円）
+      # )
     end
   end
 
