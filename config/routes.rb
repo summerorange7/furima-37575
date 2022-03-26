@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'cards/new'
+  get 'users/show'
   devise_for :users, controllers: {
    omniauth_callbacks: 'users/omniauth_callbacks',
    registrations: 'users/registrations'
@@ -16,4 +18,7 @@ Rails.application.routes.draw do
       get 'search'
     end
   end
+  resources :users, only: [:show, :update]
+  resources :cards, only: [:new, :create]
+
 end
