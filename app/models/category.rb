@@ -1,6 +1,7 @@
 class Category < ActiveHash::Base
   self.data = [
-    { id: 1, name: '--' },
+    # 変更前  { id: 1, name: '--' }, :ransackを用いて検索機能を実装 
+    # → 検索時に{ id: 1, name: '---' }を選択した場合、カテゴリーid 1で保存されているデータは無く、検索で何も引っかからなくなってしまうため
     { id: 2, name: 'レディース' },
     { id: 3, name: 'メンズ' },
     { id: 4, name: 'ベビー・キッズ' },

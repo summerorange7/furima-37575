@@ -1,0 +1,57 @@
+<%= render "shared/header" %>
+<h3>検索ページ</h3>
+<h3><%= link_to 'トップページへ戻る', root_path%></h3>
+<div class='item-contents' id="detailed-search-result-wrapper">
+  <%= search_form_for @q, url: item_search_items_path, html: {id: "detailed-search-form"} do |f| %>
+    <%# search_form_for :ransack専用メソッド、検索フォームを実装できる%>
+    <div class="search-field"><%# 商品名で検索%>
+      <%= f.label :title, '商品名' %>
+      <%# 部分一致検索contを削除 :複数検索に対応させるため%>
+      <br>
+      <%= f.text_field :title, placeholder: '商品名', value: params[:q]&.dig(:title) %>
+      <%# 「, value: params[:q]&.dig(:title)」を追加 :商品名で検索した際、ページ遷移後に入力欄が空になるのを防ぐ%>
+      <%# 変更前%>
+      <%#= f.label :title_cont, '商品名' %><%# 商品名を指すtitleカラムに対して部分一致検索%>
+      <%#br>
+      <%= f.text_field :title_cont, placeholder: '商品名' %>
+    </div>
+    <div class="search-field">
+      <%= f.label :user_nickname_cont, '出品者名' %>
+      <br>
+      <%= f.text_field :user_nickname_cont, placeholder: '出品者名' %>
+    </div>
+    <div class="search-field"><%# 複数のカテゴリーで検索%>
+      <%= f.label :category_id_in, 'カテゴリ' %>
+      <br>
+      <%= f.collection_check_boxes(:category_id_in, Category.all, :id, :name, {include_blank: "---"}) %>
+      <%# collection_check_boxes :モデルに紐づくチェックボックスを作成することができるメソッド%>
+      <%# 変更前 :以下の記述はカテゴリーを１つだけ選べる%>
+      <%#= f.label :category_id_eq, 'カテゴリ' %><%# カテゴリーで検索%>
+      <%#br>
+      <%= f.collection_select(:category_id_eq, Category.all, :id, :name, {include_blank: "---"}) %>
+      <%# {include_blank: "---"} :collection_selectメソッドのオプション、何も選択していない時に表示される内容（=初期値）
+          これを設定したため、model内で記述したプルダウンメニューの「---」に該当するid:1はコメントアウト%>
+    </div>
+     <div class="search-field"><%# 価格で検索%>
+      <%= f.label :price_gteq, '価格'%>
+      <br>
+      <%= f.number_field :price_gteq %> 円以上
+      <br>
+      <%= f.number_field :price_lteq %> 円以下
+    </div>
+    <%= f.submit '検索' %>
+  <% end %>
+  <ul class='item-lists' id="detailed-search-result">
+    <% @items.each do |item| %>
+      <li class='list'>
+        <div class="posted-content">
+          <%= image_tag item.images[0] %><br>
+          <%# 複数枚画像投稿出来るよう他の部分でimagesになってるので合わせる%>
+          <%# 複数枚画像投稿仕様になっているため、配列でどの画像を出すか指定する必要あり → エラーの元%>
+          <%= item.title%><br>
+          <%= link_to '詳細', item_path(item.id)%>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

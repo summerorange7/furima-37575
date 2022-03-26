@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   resources :items do
     resources :orders, only: [:index, :create] 
     resources :comments, only: :create
-    collection do #searchアクションはitemがないと動かないからitemを親とした入れ子で記述
+    collection do #商品複雑検索用item_searchアクションはitemがないと動かないからitemを親とした入れ子で記述
+      get 'item_search'
+    end
+    collection do #逐次検索用searchアクションはitemがないと動かないからitemを親とした入れ子で記述
       get 'search'
     end
   end
