@@ -71,11 +71,17 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
+  def item_search
+    @q = Item.ransack(params[:q])
+    @items = @q.result
+  end
+
   def search #インクリメンタルサーチ（逐次検索機能）の実装のため新たに記述
     return nil if params[:keyword] == "" # フォームの入力内容が空だったらjsファイルに対してnilを返す
     tag = Tag.where(['tag_name LIKE ?', "%#{params[:keyword]}%"] )
     render json:{ keyword: tag }
   end
+
 
   private
 

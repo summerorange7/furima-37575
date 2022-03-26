@@ -1,0 +1,21 @@
+<%= render "shared/header" %>
+<h3>検索ページ</h3>
+<h3><%= link_to 'トップページへ戻る', root_path%></h3>
+<div class='item-contents' id="detailed-search-result-wrapper">
+  <%= search_form_for @q, url: item_search_items_path, html: {id: "detailed-search-form"} do |f| %>
+    <%= f.submit '検索' %>
+  <% end %>
+  <ul class='item-lists' id="detailed-search-result">
+    <% @items.each do |item| %>
+      <li class='list'>
+        <div class="posted-content">
+          <%= image_tag item.images[0] %><br>
+          <%# 複数枚画像投稿出来るよう他の部分でimagesになってるので合わせる%>
+          <%# 複数枚画像投稿仕様になっているため、配列でどの画像を出すか指定する必要あり → エラーの元%>
+          <%= item.title%><br>
+          <%= link_to '詳細', item_path(item.id)%>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
