@@ -72,6 +72,15 @@ class ItemsController < ApplicationController
   end
 
   def item_search
+    # params[:q]がnilではない且つ、params[:q][:title]がnilではないとき（商品名の欄が入力されているとき）
+    # if params[:q] && params[:q][:title]と同じような意味合い
+    if params[:q]&.dig(:title) # 商品名のみに対して複数検索できるようにするため
+      # squishメソッドで余分なスペースを削除する
+      squished_keywords = params[:q][:title].squish
+      ## 半角スペースを区切り文字として配列を生成し、paramsに入れる
+      params[:q][:title_cont_any] = squished_keywords.split(" ")
+      # _any :ransackのオプション、「いずれかに一致するもの」という意味の検索ができる
+    end # ifからここまで、商品名複数検索のために追加で記述
     @q = Item.ransack(params[:q])
     @items = @q.result
   end

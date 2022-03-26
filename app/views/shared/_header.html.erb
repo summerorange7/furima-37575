@@ -2,12 +2,22 @@
 <header class='top-page-header'>
   <div class='search-bar-contents'>
     <%= link_to image_tag("furima-logo-color.png", class:"furima-icon"), "/" %>
-    <form class="search-form" action="#">
+    <%# トップページから商品名を入力したら検索結果を検索ページに出力できるよう変更%>
+    <%= search_form_for Item.ransack(params[:q]), url: item_search_items_path, html: {class: "search-form"} do |f| %>
+      <%= f.text_field :title, placeholder: 'キーワードから探す', class: 'input-box' %>
+      <br>
+      <%= f.label :submit, class: "search-button" do %>
+        <%= image_tag "search.png", class:"search-icon" %>
+        <%= f.submit :submit, id: "q_submit", style: "display: none;"%>
+      <% end %>
+    <% end %>
+    <%# 変更前%>
+    <%#form class="search-form" action="#">
       <input class='input-box' placeholder='キーワードから探す'>
       <button class="search-button">
         <%= image_tag "search.png", class:"search-icon" %>
-      </button>
-    </form>
+      <%#/button>
+    </form#%>
   </div>
   <div class='nav'>
     <ul class='lists-left'>
