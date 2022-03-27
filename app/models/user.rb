@@ -21,8 +21,9 @@ class User < ApplicationRecord
   # 背景 : usersコントローラーのupdateアクション（マイページの情報を更新）の際に上記バリデーションが働いて失敗していたから
 
 
+  has_one :home
   has_many :items
-  has_many :orders
+  has_many :orders 
   has_many :sns_credentials
   has_many :comments
   has_one :card, dependent: :destroy

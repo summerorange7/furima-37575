@@ -1,0 +1,100 @@
+<%= render "shared/second-header"%>
+
+<% breadcrumb :devise %>
+
+
+<%= form_for @home do |f| %><%#ウィザード形式新規登録機能実装のため追加%>
+  <%= render "devise/shared/error_messages", resource: @home %>
+  <%# resource :モデル名として指定、仮引数的な扱い%>
+<%# 変更前 :ウィザード形式の新規登録機能実装のため変更%>
+<%# 【学習備忘録】「モデル名」にはdeviseによるuserモデル作成の為@userを渡す、「新規登録機能へのパス」は、devise/registrations#createに該当するもの %>
+<%#= form_with model: @user, url: user_registration_path, class: 'registration-main', local: true do |f| %>
+<%# //【学習備忘録】ここまでform_withによるアカウント新規作成 %>
+<div class='form-wrap'>
+  <div class='form-header'>
+    <h1 class='form-header-text'>
+      住所情報入力
+    </h1>
+  </div>
+ 
+  <%# 【学習備忘録】インスタンスを渡して、エラー発生時にメッセージを表示させる%>
+  <%= render 'shared/error_messages', model: f.object %>
+  <%# //【学習備忘録】ここまで、renderメソッド使用%>
+
+  <div class="form-group">
+    <div class='form-text-wrap'>
+      <label class="form-text">郵便番号</label>
+      <span class="indispensable">必須</span>
+    </div>
+    <%= f.text_field :postal_code, class:"input-default", id:"postal-code", placeholder:"例）123-4567", maxlength:"8" %>
+  </div>
+  <div class="form-group">
+    <div class='form-text-wrap'>
+      <label class="form-text">住所</label>
+      <span class="indispensable">必須</span>
+    </div>
+    <%= f.text_field :address, class:"input-default", id:"address", placeholder:"例）神奈川県横浜市緑区1-1" %>
+  </div>
+  <%#div class="form-group">
+    <div class='form-text-wrap'>
+      <label class="form-text">都道府県</label>
+      <span class="indispensable">必須</span>
+    </div>
+    <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"prefecture"}) %>
+  <%#/div>
+  <div class="form-group">
+    <div class='form-text-wrap'>
+      <label class="form-text">市区町村</label>
+      <span class="indispensable">必須</span>
+    </div>
+    <%= f.text_field :town, class:"input-default", id:"city", placeholder:"例）横浜市緑区"%>
+  <%#/div>
+  <div class="form-group">
+    <div class='form-text-wrap'>
+      <label class="form-text">番地</label>
+      <span class="indispensable">必須</span>
+    </div>
+    <%= f.text_field :living_area, class:"input-default", id:"addresses", placeholder:"例）青山1-1-1"%>
+  <%#/div>
+  <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">建物名</label>
+          <span class="form-any">任意</span>
+        </div>
+        <%= f.text_field :building, class:"input-default", id:"building", placeholder:"例）柳ビル103"%>
+      <%#/div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">電話番号</label>
+          <span class="indispensable">必須</span>
+        </div>
+        <%= f.text_field :telephone, class:"input-default", id:"phone-number", placeholder:"例）09012345678",maxlength:"11"%>
+      <%#</div>%>
+  <div class="form-group">
+    <p class='form-info-header'>
+      本人確認
+    </p>
+    <p class='form-ino-text'>
+      安心・安全にご利用いただくために、お客さまの本人情報の登録にご協力ください。他のお客さまに公開されることはありません。
+    </p>
+  </div>
+    <p class='info-text'>※ 本人情報は正しく入力してください。会員登録後、修正するにはお時間を頂く場合があります。</p>
+  </div>
+  <div class="form-group">
+    <h2 class='form-bottom-text'>
+      「会員登録」のボタンを押すことにより、
+      <span>利用規約</span>
+      <br>に同意したものとみなします
+    </h2>
+  </div>
+  <div class='register-btn'>
+    <%= f.submit "会員登録" ,class:"register-red-btn" %>
+  </div>
+  <p class='register-info'>本人情報の登録について</p>
+</div>
+<div class="actions">
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+<%= render "shared/second-footer"%>
