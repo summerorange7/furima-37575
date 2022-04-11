@@ -12,3 +12,11 @@
   width: 185px;
   height: 49px;
 }
+
+.breadcrumbs{ width: 100%;
+  min-width: 800px;
+  height: 30px;
+  display: flex;
+  padding-left: 5vw;
+}
+
